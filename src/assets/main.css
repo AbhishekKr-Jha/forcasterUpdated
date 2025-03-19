@@ -1,0 +1,85 @@
+@import './base.css';
+@import './waste.css';
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Itim&display=swap');
+
+
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "Itim", cursive;}
+
+
+body{
+  width: 100vw;
+  overflow-x: hidden;
+  /* background-color: black; */
+}
+
+#app {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+
+.input {
+  background: red !important;
+  padding: 12px 20px;
+  width: 90%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  max-width: 900px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tabs {
+  width: max-content;
+  padding:5px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color: rgb(1,84,154);
+}
+.tab-button{
+  background-color: rgb(1,84,154);
+  color: white;
+  font-weight: 500;
+}
+.active {
+  background-color: #EFF8FF;
+  color: rgb(1,84,154) !important;
+}
+@media (max-width: 350px) {
+  .tabs{width: 90%;}
+  .tab-button{
+     font-size: 14px;
+     padding:8px 10px
+  }
+
+}
+
+
+.sec-cont{
+  
+}
