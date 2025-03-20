@@ -142,7 +142,7 @@ async fetchCityWeather(){
   </div> 
 <input type="text" class="input font-medium text-lg text-white " v-model="cityValue" placeholder="Search for Cities" />
 <button @click="fetchCityWeather" type="button" class="rounded-lg text-lg block buy-button search-text" >Search</button>   
-<i @click="fetchCityWeather" class="ri-search-line hidden search-icon text-2xl"></i>
+<i @click="fetchCityWeather" class="ri-search-line hidden search-icon text-2xl text-white"></i>
 </div>
 
 
