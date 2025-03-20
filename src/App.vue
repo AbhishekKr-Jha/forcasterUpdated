@@ -39,8 +39,8 @@ data(){
   }
 },
 setup() {
-    const { formatDay, formatTime,isToday } = useDateFormatter();
-    return { formatDay, formatTime,isToday };  
+    const { formatDay, formatTime,isToday,formatDate } = useDateFormatter();
+    return { formatDay, formatTime,isToday,formatDate };  
   },
 components:{
   Input,
@@ -75,6 +75,7 @@ async fetchWeatherData(city){
 
 async fetchCityWeather(){
   this.weatherDetails = await this.fetchWeatherData(this.cityValue.trim());
+
   console.log(this.weatherDetails);
 }
 
@@ -82,6 +83,29 @@ async fetchCityWeather(){
   async created(){
     // this.$toast.success("Login successful")
     this.weatherDetails = await this.fetchWeatherData('Kolkata');
+    this.extraDetailsData=[
+      {
+        text: 'Real Feel',
+        image:'/thermometer.png',
+        value:this.weatherDetails?.current?.feelslike_c +'° C'
+      },
+      {
+        text: 'Wind',
+        image:'/wind2.png',
+        value:this.weatherDetails?.current?.wind_kph+' Km/h'
+      },
+      {
+        text: 'Rain Chance',
+        image:'/rainy.png',
+        value:this.weatherDetails?.current?.cloud
+      },
+      {
+        text: 'UV Index',
+        image:'/uvIndex.png',
+        value:this.weatherDetails?.current?.uv
+      },
+    
+    ]
     console.log(this.weatherDetails);
   }
 }
@@ -96,24 +120,28 @@ async fetchCityWeather(){
   <p class="text-2xl">Fetching Details...</p> 
 </div>
 
-<div v-show="!loader" style="padding: 10px 20px;" class="w-full flex flex-row  gap-30 min-h-screen  bg-main main-container">
+<div v-show="!loader" style="padding: 10px 20px;background-color: yellow;" class="w-full flex flex-row  gap-30 min-h-screen   main-container">
 
 <div  class="w-full flex flex-col gap-10 rounded-lg   weather-container">
 
 <!-- input cities- -->
 
   <div style="padding: 5px ; background-color: #202B3B ;" class=" w-full rounded-lg flex items-center gap-10 input-container" >
-  <div class="">
-    <p class="text-3xl text-white">Forcaster</p>
-    <!-- <p>Good morinig</p> -->
-  </div>
-<input type="text" class="input font-medium text-lg text-white bg-green" v-model="cityValue" placeholder="Search for Cities" />
-<button @click="fetchCityWeather" type="button" class="rounded-lg text-lg buy-button" >Search</button>   
+  
+    <div class=" ">
+    <p  class="text-3xl text-white heading">Forcaster</p>
+  </div> 
+<input type="text" class="input font-medium text-lg text-white " v-model="cityValue" placeholder="Search for Cities" />
+<button @click="fetchCityWeather" type="button" class="rounded-lg text-lg block buy-button search-text" >Search</button>   
+<i @click="fetchCityWeather" class="ri-search-line hidden search-icon text-2xl"></i>
 </div>
 
 
-<p>GooD Morning</p>
-<div class="w-full relative mx-auto rounded-lg flex flex-row justify-between items-start overflow-hidden current-weather-box  text-2xl">
+<!-- <p class="text-2xl text-white">Good Morning!</p>  -->
+
+<div class="">
+  <p class="text-white text-center text-3xl date-heading">{{ formatDate(weatherDetails?.location?.localtime) }}</p>
+<div  class="w-full bg-green relative mx-auto rounded-lg flex flex-row justify-between items-start overflow-hidden current-weather-box  text-2xl">
   <!-- <img src="/sunny.png" class="w-full h-full object-fit-contain" />
 
   <div class="inner-current-weather-box">
@@ -137,12 +165,13 @@ async fetchCityWeather(){
 
 
 </div>
+</div>
 
 
 
 
 <div style="padding: 20px;" class="w-full flex flex-col gap-10  rounded-lg  bg-dark hourly-weather-container text-white ">  
-  <p class="text-2xl text-white">Today forecast</p>
+  <p class="text-2xl text-white">Today  &nbsp;forecast</p>
   <div class="w-full flex flex-nowrap overflow-x-auto justify-between  gap-60   hide-scrollbar  ">
 
     <div style="flex-shrink: 0;" v-for="ele in  weatherDetails?.forecast?.forecastday[0]?.hour" :key="ele?.time" class="flex  flex-col items-center gap-10 hourly-weather-items">
@@ -171,7 +200,7 @@ async fetchCityWeather(){
     <img :src="item.image" width="50px" height="50px" class="object-fit-contain"  />
     <div style="gap:5px;" class=" flex flex-col flex-nowrap ">
 <span class="">{{ item.text }}</span>
-<p class="">{{item.value}}° C</p>
+<p class="">{{item.value}}</p>
 </div>
 </div>
 
@@ -204,7 +233,7 @@ async fetchCityWeather(){
 
 <div style="padding: 15px;" class="w-full flex flex-col gap-10 sticky top-25 rounded-lg forcast-container text-white bg-dark ">
   <p class="text-2xl text-white">7 day forecast</p>
-  <div class="w-full h-full overflow-hidden overflow-y-scroll  flex flex-col gap-20 hide-scrollbar">
+  <div class="w-full h-full overflow-hidden overflow-y-scroll  flex flex-col  hide-scrollbar">
 
 <div style="padding:10px;flex-shrink: 0;"  v-for="ele in  weatherDetails?.forecast?.forecastday" :key="ele?.date" class="flex flex-col gap-10  rounded-lg text-lg forecast-items bg-dark2  ">
 
@@ -212,13 +241,13 @@ async fetchCityWeather(){
 
 <div class="flex justify-between  items-center">
   <p class="">{{isToday(ele?.date)?"Today": formatDay(ele?.date) }}</p>
-<div class="flex items-center gap-20">
+<div class="flex items-center gap-10">
   <img :src="ele?.day?.condition?.icon" width="50px" height="50px" class="object-fit-contain" />
 
 </div>
 <p>{{ ele?.day?.maxtemp_c }}॰ C</p>
 </div>
-
+<hr class=" mt-10 w-90 mx-auto">
 </div>
 </div>
 </div>

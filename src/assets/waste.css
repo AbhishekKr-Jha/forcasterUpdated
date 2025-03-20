@@ -1,195 +1,200 @@
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
 
-  .hide-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE & Edge */
-  }
-  
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-  
-  
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
 
-
-
-  
-  .buy-button{
-    width: 120px;
-    padding: 10px 0;
-    font-family: "Itim", cursive;
-    outline: none;
-    border:none;
-    background-color: rgb(1,84,154);
-    color:white;
+.buy-button {
+  width: 120px;
+  padding: 10px 0;
+  font-family: "Itim", cursive;
+  outline: none;
+  border: none;
+  background-color: rgb(1, 84, 154);
+  color: white;
   cursor: pointer;
-  }
-  
-  /* .buy-button:hover{
+}
+
+/* .buy-button:hover{
     background: rgba(1,84,154,0.82);
     transform: scale(1.1);
   } */
-  
-  
-  .buy-button2{
-    bottom: 115px;
-    padding: 12px 5px;
-    border-radius: 25px;
-    transition: all ease-in-out 0.5s;
-  }
-  .buy-button2:hover{
-    transform: scale(1);
-    box-shadow: 15px 25px 10px -14px #000000;
-  }
-   
-  .buy-button2:active {
-    /* transform: scale(0.97); */
-    box-shadow: 7px 5px 56px -10px #000000;
-   }
-  
-  
-  
-  
-  
-  
-/*   
-    @media (max-width: 500px) {
+
+.buy-button2 {
+  bottom: 115px;
+  padding: 12px 5px;
+  border-radius: 25px;
+  transition: all ease-in-out 0.5s;
+}
+.buy-button2:hover {
+  transform: scale(1);
+  box-shadow: 15px 25px 10px -14px #000000;
+}
+
+.buy-button2:active {
+  /* transform: scale(0.97); */
+  box-shadow: 7px 5px 56px -10px #000000;
+}
+
+/* @media (max-width: 500px) {
       .main-container{
           padding:0 10px !important;
       }
     } */
-  
- 
-    
-    .main-container{
 
-    }
-    
-.current-weather-box{
-    max-width: 650px;
-    height: 250px;
-    /* background-color: red; */
-   }
-   .weather-img{
-    width: 280px    ;
-    height: 100%;
-    
-   }
-   .temp2{display: none;}
-
-    .inner-current-weather-box{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex ;
-        justify-content: center;
-        align-items: center;
-        background-color: #202b3b2a;
-        -webkit-backdrop-filter: blur(5px);
-        backdrop-filter: blur(5px);
-    }
-   .hourly-weather-container, .extra-weather-details{
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-   } 
-
-.weather-container{
-    overflow-x: hidden;
+.main-container {
 }
 
-.hourly-weather-items{
-
+.current-weather-box {
+  max-width: 650px;
+  height: 250px;
+  background-color: #202b3b;
+  /* -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  */
+}
+.weather-img {
+  width: 280px;
+  height: 100%;
+}
+.temp2 {
+  display: none;
 }
 
-.forcast-container{
-width: 600px; 
+.inner-current-weather-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #202b3b2a;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+.hourly-weather-container,
+.extra-weather-details {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.weather-container {
+  overflow-x: hidden;
+}
+
+.hourly-weather-items {
+}
+
+.forcast-container {
+  width: 500px;
   max-height: 600px;
-    min-height: 500px;
-    
+  min-height: 500px;
 }
-
 
 @media (max-width: 1000px) {
-.main-container{
+  .main-container {
     flex-direction: column;
-}
-.current-weather-box{
-max-width: 800px;
-}
-h2{
+  }
+  .current-weather-box {
+    max-width: 800px;
+  }
+  h2 {
     font: medium;
     font-size: 30px;
-}
-.weather-img{
-    width: 270px    ;
+  }
+  .weather-img {
+    width: 270px;
     height: 100%;
-    
-   }
+  }
 
-.forcast-container{
+  .forcast-container {
     width: 100%;
     max-width: 850px;
     margin: 0 auto;
-}
-.forecast-items{
+  }
+  .forecast-items {
     font-size: 20px;
-}
-.extra-details-container{
+  }
+  .extra-details-container {
     gap: 30px;
-    }
-
+  }
 }
-
 
 @media (max-width: 650px) {
-.weather-img{
+  .main-container {
+    padding: 0 10px !important;
+  }
+  .date-heading {
+    font-size: 30px;
+  }
+  .weather-img {
     width: 35%;
     min-width: 150px;
     margin: 0 auto;
     /* height: 100px; */
-}
+  }
+  .heading {
+    font-size: 32px;
+  }
 }
 
 @media (max-width: 450px) {
-    /* h2,.temp{font-size: 28px;} */
-    .current-weather-box{
-        flex-direction: column;
-        height: max-content;
-        /* background-color: red; */
-    }
-    .temp1{display: none;}
-    
-    h2{font-size: 27px !important; 
-        font-weight: 500;
-    }
-    .temp2{
-        font-size: 38px !important;
-        display: block;
-        font-weight: 500;
+  .search-text {
+    display: none;
+  }
+  .search-icon {
+    display: block;
+  }
 
-    }
-    .extra-weather-details{
-padding: 8px !important;
-    }
-    .extra-weather-details p{font-size: 20px;}
-.extra-details-box {
-font-size: 18px;
-}
-.extra-details-box img{
+  /* h2,.temp{font-size: 28px;} */
+  .current-weather-box {
+    flex-direction: column;
+    height: max-content;
+    /* background-color: red; */
+  }
+  .temp1 {
+    display: none;
+  }
+
+  h2 {
+    font-size: 27px !important;
+    font-weight: 500;
+  }
+  .temp2 {
+    font-size: 38px !important;
+    display: block;
+    font-weight: 500;
+  }
+  .extra-weather-details {
+    padding: 8px !important;
+  }
+  .extra-weather-details p {
+    font-size: 20px;
+  }
+  .extra-details-box {
+    font-size: 18px;
+  }
+  .extra-details-box img {
     width: 30px;
     height: 30px;
-}
+  }
 }
 
 @media (max-width: 300px) {
-.extra-details-conatiner{
-flex-direction: column;
-}
-.extra-details-box{width: 100% !important;justify-content: start;}
-.extra-details-box div{
-flex-direction: row;
-width: auto;
-}
+  .extra-details-conatiner {
+    flex-direction: column;
+  }
+  .extra-details-box {
+    width: 100% !important;
+    justify-content: start;
+  }
+  .extra-details-box div {
+    flex-direction: row;
+    width: auto;
+  }
 }

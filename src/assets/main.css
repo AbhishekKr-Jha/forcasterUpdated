@@ -20,7 +20,7 @@ body{
 
 
 .input {
-  background: red !important;
+  /* background: red !important; */
   padding: 12px 20px;
   width: 90%;
   outline: none;
