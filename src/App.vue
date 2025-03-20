@@ -4,6 +4,7 @@ import Loader from './components/Loader.vue';
 import Input from './components/Input.vue';
 import { useDateFormatter } from "./composable/Formatter";
 import { useWeatherBackground } from "./composable/WeatherBackground";
+import moment from 'moment';
 
  
 
@@ -13,7 +14,7 @@ data(){
   return{
     weatherDetails:null,
     loader:false,
-    cityValue:"helo",
+    cityValue:null,
     extraDetailsData:[
       {
         text: 'Real Feel',
@@ -56,7 +57,6 @@ methods:{
   async fetchWeatherData(city){
     console.log("dat fetching strated")
     this.loader=true
-    // const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
     
 
     const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
@@ -74,7 +74,7 @@ methods:{
       console.log("dat fettching stopped as ",data)
       this.loader=false
 
-      this.$toast.success("Weather Details Fetched")
+      this.$toast.success("Weather Details Loaded")
       this.viewModal=false
       this.setWeatherBackground(data?.current?.condition?.text);
     console.log("data has been found") 
@@ -89,9 +89,15 @@ async fetchCityWeather(){
 
   },
   async created(){
-    // this.$toast.success("Login successful")
-    this.weatherDetails = await this.fetchWeatherData('Kolkata');
+    const getTimeOfDay = () => {
+    const hour = moment().hour(); 
+    if (hour < 12) return "Good Morning";
+    if (hour < 18) return "Good Afternoon";
+    return "Good Evening";
+  };
+  this.$toast.success(getTimeOfDay())
 
+    this.weatherDetails = await this.fetchWeatherData('Kolkata');
     this.extraDetailsData=[
       {
         text: 'Real Feel',
@@ -241,7 +247,7 @@ async fetchCityWeather(){
 
 
 <div style="padding: 15px;" class="w-full flex flex-col gap-10 sticky top-25 rounded-lg forcast-container text-white bg-dark ">
-  <p class="text-2xl text-white">7 day forecast</p>
+  <p class="text-2xl text-white">1 week forecast</p>
   <div class="w-full h-full overflow-hidden overflow-y-scroll  flex flex-col  hide-scrollbar">
 
 <div style="padding:10px;flex-shrink: 0;"  v-for="ele in  weatherDetails?.forecast?.forecastday" :key="ele?.date" class="flex flex-col gap-10  rounded-lg text-lg forecast-items bg-dark2  ">
