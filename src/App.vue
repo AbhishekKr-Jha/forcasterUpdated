@@ -3,6 +3,7 @@
 import Loader from './components/Loader.vue';
 import Input from './components/Input.vue';
 import { useDateFormatter } from "./composable/Formatter";
+import { useWeatherBackground } from "./composable/WeatherBackground";
 
  
 
@@ -40,38 +41,45 @@ data(){
 },
 setup() {
     const { formatDay, formatTime,isToday,formatDate } = useDateFormatter();
-    return { formatDay, formatTime,isToday,formatDate };  
+    const { updateBackground } = useWeatherBackground();
+
+const setWeatherBackground = (weatherCondition) => {
+  document.body.style.background = updateBackground(weatherCondition);
+};
+    return { formatDay, formatTime,isToday,formatDate,setWeatherBackground };  
   },
 components:{
   Input,
   Loader
 },
 methods:{
-async fetchWeatherData(city){
-  console.log("dat fetching strated")
-  this.loader=true
-  // const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
-  
+  async fetchWeatherData(city){
+    console.log("dat fetching strated")
+    this.loader=true
+    // const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
+    
 
-  const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
+    const res=await fetch(`https://api.weatherapi.com/v1/forecast.json?key=cd09a530ece24614bd775526250603&q=${city}&days=5&aqi=no&alerts=no`)
 
-  console.log("the response coming from the data is",res)
-  if (!res.ok) { 
-      // alert(res?.message || "Place can not be found!")
-      this.$toast.error("Place can not be found!")
+    console.log("the response coming from the data is",res)
+    if (!res.ok) { 
+        // alert(res?.message || "Place can not be found!")
+        this.$toast.error("Place can not be found!")
 
+        this.loader=false
+        return weatherDetails
+      }
+
+      const data = await res.json();
+      console.log("dat fettching stopped as ",data)
       this.loader=false
-      return weatherDetails
-    }
 
-    const data = await res.json();
-    console.log("dat fettching stopped as ",data)
-    this.loader=false
-    this.$toast.success("Weather Details Fetched")
-    this.viewModal=false
-  console.log("data has been found") 
-  return data
-},
+      this.$toast.success("Weather Details Fetched")
+      this.viewModal=false
+      this.setWeatherBackground(data?.current?.condition?.text);
+    console.log("data has been found") 
+    return data
+  },
 
 async fetchCityWeather(){
   this.weatherDetails = await this.fetchWeatherData(this.cityValue.trim());
@@ -83,6 +91,7 @@ async fetchCityWeather(){
   async created(){
     // this.$toast.success("Login successful")
     this.weatherDetails = await this.fetchWeatherData('Kolkata');
+
     this.extraDetailsData=[
       {
         text: 'Real Feel',
@@ -115,18 +124,18 @@ async fetchCityWeather(){
 
 <template>
   
-<div v-show="loader" class="w-full h-screen flex flex-col gap-10 items-center justify-center">
+<div v-show="loader" class="w-full h-screen bg-main text-white flex flex-col gap-10 items-center justify-center">
   <Loader />
   <p class="text-2xl">Fetching Details...</p> 
 </div>
 
-<div v-show="!loader" style="padding: 10px 20px;background-color: yellow;" class="w-full flex flex-row  gap-30 min-h-screen   main-container">
+<div v-show="!loader" style="padding: 10px 20px;" class="w-full flex flex-row  gap-30 min-h-screen   main-container">
 
 <div  class="w-full flex flex-col gap-10 rounded-lg   weather-container">
 
 <!-- input cities- -->
 
-  <div style="padding: 5px ; background-color: #202B3B ;" class=" w-full rounded-lg flex items-center gap-10 input-container" >
+  <div style="padding: 5px ; background-color: #202B3B ;margin-top: 2px;" class=" w-full rounded-lg flex items-center gap-10 input-container" >
   
     <div class=" ">
     <p  class="text-3xl text-white heading">Forcaster</p>
@@ -140,13 +149,13 @@ async fetchCityWeather(){
 <!-- <p class="text-2xl text-white">Good Morning!</p>  -->
 
 <div class="">
-  <p class="text-white text-center text-3xl date-heading">{{ formatDate(weatherDetails?.location?.localtime) }}</p>
+  <!-- <p class="text-white text-center text-3xl date-heading">{{ formatDate(weatherDetails?.location?.localtime) }}</p> -->
 <div  class="w-full bg-green relative mx-auto rounded-lg flex flex-row justify-between items-start overflow-hidden current-weather-box  text-2xl">
-  <!-- <img src="/sunny.png" class="w-full h-full object-fit-contain" />
+   <!-- <img :src="weatherDetails?.current?.condition?.icon" class="w-full absolute top-0 left-0 h-full object-fit-contain" /> -->
 
-  <div class="inner-current-weather-box">
+  <!-- <div class="inner-current-weather-box">
     hello
-  </div> -->
+  </div>  -->
 
 
  <div style="padding: 10px 15px;" class="flex flex-col gap-60 text-white">
